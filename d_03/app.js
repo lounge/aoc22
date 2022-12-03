@@ -31,12 +31,12 @@ lineReader.on('close', function() {
   let score = 0;
   let score2 = 0;
   items.forEach(item => {
-    var charCode = item[0].charCodeAt(0);
+    let charCode = item[0].charCodeAt(0);
     score += getPriority(charCode);
   });
 
   items2.forEach(item => {
-    var charCode = item[0].charCodeAt(0);
+    let charCode = item[0].charCodeAt(0);
     score2 += getPriority(charCode);
   });
 
