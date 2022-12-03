@@ -21,7 +21,7 @@ def q2(played_hands):
                 if scores[j] == played_hands[1]:
                     return (scores.index(a_hands[i][j+1]) + 1) + (j)*3
 
-with open(os.path.join(sys.path[0], "input_01s.txt"), "r") as file:
+with open(os.path.join(sys.path[0], "input_01.txt"), "r") as file:
     while (line := file.readline().rstrip()):
         score1 += q1(line.split(' '))
         score2 += q2(line.split(' '))
