@@ -12,6 +12,7 @@ def q1(played_hands):
         if a_hands[i][0] == played_hands[0]:
             for j in range(4):
                 if a_hands[i][j] == played_hands[1]:
+                    print((scores.index(played_hands[1]) + 1) + (j-1)*3)
                     return (scores.index(played_hands[1]) + 1) + (j-1)*3
 
 def q2(played_hands):
@@ -28,3 +29,4 @@ with open(os.path.join(sys.path[0], "input_01.txt"), "r") as file:
 
 print(score1)
 print(score2)
+
