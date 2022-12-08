@@ -10,11 +10,9 @@ const visible = (arr, r, c) => arr.every( (val) => val < grid[r][c] );
 function treeCount(arr, tree) {
     let count = 0;
     for (var i = 0; i < arr.length; i++) {
+        count++
         if (arr[i] < tree) {
             count++;
-        } else {
-            count++
-            return count;
         }
     }
     return count;
