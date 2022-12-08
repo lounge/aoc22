@@ -2,8 +2,6 @@ var lineReader = require('readline').createInterface({
     input: require('fs').createReadStream('input_01.txt')
 });
 
-const items = [];
-const items2 = [];
 let score = 0;
 let score2 = 0;
 let groups = [];
