@@ -5,7 +5,6 @@ def connected(x1, x2, y1, y2):
     dy = abs(y1 - y2)
     return max([dx, dy]) == 1 or max([dx, dy]) == 0
 
-
 def move_head(dir, x1, y1):
     match dir:
         case "U":
@@ -48,7 +47,7 @@ def q1():
     with open(os.path.join(sys.path[0], "input_01.txt"), "r") as file:
         while (line := file.readline().rstrip()):
             instr = line.split(' ')
-            for move in range(int(instr[1])):
+            for _ in range(int(instr[1])):
                 x1, y1 = move_head(instr[0], x1, y1)
 
                 if not connected(x1, x2, y1, y2):
@@ -61,11 +60,11 @@ def q1():
 
 def q2():
     visited2 = set()
-    rope = [[0 for x in range(2)] for y in range(10)] 
+    rope = [[0 for _ in range(2)] for y in range(10)] 
     with open(os.path.join(sys.path[0], "input_01.txt"), "r") as file:
         while (line := file.readline().rstrip()):
             instr = line.split(' ')
-            for move in range(int(instr[1])):
+            for _ in range(int(instr[1])):
                 rope[0][0], rope[0][1] = move_head(instr[0], rope[0][0], rope[0][1])
 
                 for i in range(len(rope) - 1):
