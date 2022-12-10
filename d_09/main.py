@@ -59,7 +59,7 @@ def q1():
     print("q1: ", len(visited))
 
 def q2():
-    visited2 = set()
+    visited = set()
     rope = [[0 for _ in range(2)] for y in range(10)] 
     with open(os.path.join(sys.path[0], "input_01.txt"), "r") as file:
         while (line := file.readline().rstrip()):
@@ -75,9 +75,9 @@ def q2():
                         rope[i+1][0], rope[i+1][1] = move_tail(new_h[0], new_t[0], new_h[1], new_t[1])
 
                 tail_pos = "{},{}".format(rope[9][0], rope[9][1])
-                visited2.add(tail_pos)
+                visited.add(tail_pos)
 
-    print("q2: ", len(visited2))
+    print("q2: ", len(visited))
 
 q1()
 q2()
