@@ -17,8 +17,8 @@ var crt_row = 0
 var crt_pos = 1
 
 func main() {
-	var x = 1
-	var cycle = 0
+	x := 1
+	cycle := 0
 
     file, err := os.Open("input_01.txt")
     if err != nil {
