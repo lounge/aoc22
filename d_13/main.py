@@ -10,7 +10,7 @@ def q1(f):
         left, right = p.split('\n')
         l = json.loads(left)
         r = json.loads(right)
-        correct = parse(l, r, g, dict, correct)
+        correct = check(l, r, g, dict, correct)
     print(sum(correct))
 
 def q2(f):
@@ -36,7 +36,7 @@ def flatten(lst: List[Any]) -> Iterable[Any]:
         else:
             yield item
 
-def parse(l, r, g, dict, correct):
+def check(l, r, g, dict, correct):
     l_count = len(l)
     r_count = len(r)
 
@@ -44,25 +44,21 @@ def parse(l, r, g, dict, correct):
         left_item = x
 
         if g in dict:
-            continue
+            break
         elif r_count > i:
             right_item = r[i]
         else:
             dict.add(g)
-            return correct
+            break
 
-        if isinstance(left_item, int) and isinstance(right_item, int):
+        if all(isinstance(x, int) for x in [left_item, right_item]):
             if left_item == right_item:
                 continue
             if left_item < right_item:
                 correct.add(g)
             dict.add(g)
-        if isinstance(left_item, int):
-            left_item = [left_item]
-        if isinstance(right_item, int): 
-            right_item = [right_item]
-        
-        correct = parse(left_item, right_item, g, dict, correct)
+            
+        correct = check(list(flatten([left_item])), list(flatten([right_item])), g, dict, correct)
     
     if not g in dict and r_count > l_count:
         correct.add(g)
