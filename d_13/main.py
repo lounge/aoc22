@@ -54,12 +54,9 @@ def parse(l, r, g, dict, correct):
         if isinstance(left_item, int) and isinstance(right_item, int):
             if left_item == right_item:
                 continue
-
-            dict.add(g)
-            comp = left_item < right_item
-            if comp:
+            if left_item < right_item:
                 correct.add(g)
-            
+            dict.add(g)
         if isinstance(left_item, int):
             left_item = [left_item]
         if isinstance(right_item, int): 
