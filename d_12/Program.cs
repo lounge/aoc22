@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-var height = "SabcdefghijklmnopqrstuvwxyzE";
+const string height = "SabcdefghijklmnopqrstuvwxyzE";
 var directions = new List<Size> {
     { new Size(1, 0) },
     { new Size(0, 1) },
@@ -8,13 +8,12 @@ var directions = new List<Size> {
     { new Size(-1, 0) }
 };
 
-Dictionary<string, int> Dist = new Dictionary<string, int>();
+var Dist = new Dictionary<string, int>();
 int rowLength, colLength;
 
 bool IsValid(Point adjCell, Point cell, int[][] heightMap)
 {
-    var isOutOfBound = (adjCell.X < 0 || adjCell.Y < 0 || adjCell.Y >= rowLength || adjCell.X >= colLength) ? true : false;
-    if (isOutOfBound)
+    if (adjCell.X < 0 || adjCell.Y < 0 || adjCell.Y >= rowLength || adjCell.X >= colLength)
     {
         return false;
     }
@@ -27,9 +26,9 @@ bool IsValid(Point adjCell, Point cell, int[][] heightMap)
     return heightMap[adjCell.Y][adjCell.X] - heightMap[cell.Y][cell.X] <= 1;
 }
 
-void Run(int[][] heightMap, List<Point> startPoints)
+void Run(int[][] heightMap, List<Point> startPoints, Point endPoint)
 {
-    Queue<Tuple<int, Point>> q = new Queue<Tuple<int, Point>>();
+    var q = new Queue<Tuple<int, Point>>();
     foreach (var p in startPoints)
     {
         q.Enqueue(new Tuple<int, Point>(0, p));
@@ -38,12 +37,8 @@ void Run(int[][] heightMap, List<Point> startPoints)
 
     while (q.Count != 0)
     {
-        Tuple<int, Point> queueItem = q.Dequeue();
+        var queueItem = q.Dequeue();
         var cell = queueItem.Item2;
-        if (heightMap[cell.Y][cell.X] == height.IndexOf("E"))
-        {
-            Console.WriteLine($"{cell}, {queueItem.Item1}!!!!!!");
-        }
 
         if (Dist.ContainsKey(cell.ToString()))
         {
@@ -52,9 +47,9 @@ void Run(int[][] heightMap, List<Point> startPoints)
 
         Dist.Add(cell.ToString(), queueItem.Item1);
 
-        for (int i = 0; i < directions.Count; i++)
+        foreach (var dir in directions)
         {
-            var adjCell = cell + directions[i];
+            var adjCell = cell + dir;
             if (!IsValid(adjCell, cell, heightMap))
             {
                 continue;
@@ -63,12 +58,13 @@ void Run(int[][] heightMap, List<Point> startPoints)
         }
     }
 
-    Console.WriteLine(Dist.Last());
+    Console.WriteLine($"{Dist[endPoint.ToString()]}");
 }
 
 void Q1(string[] lines)
 {
-    List<Point> startPoints = new List<Point>();
+    var startPoints = new List<Point>();
+    var endPoint = new Point();
 
     var heightMap = new int[lines.Length][];
     for (int row = 0; row < lines.Length; row++)
@@ -79,19 +75,24 @@ void Q1(string[] lines)
             startPoints.Add(new Point(Array.IndexOf(heightMap[row], height.IndexOf("S")), row));
             heightMap[startPoints[0].Y][startPoints[0].X] = height.IndexOf("a");
         }
+        if (heightMap[row].Contains(height.IndexOf("E")))
+        {
+            endPoint = new Point(Array.IndexOf(heightMap[row], height.IndexOf("E")), row);
+        }
     }
     rowLength = heightMap.Length;
     colLength = heightMap[0].Length;
 
-    Run(heightMap, startPoints);
+    Run(heightMap, startPoints, endPoint);
 }
 
 void Q2(string[] lines)
 {
-    List<Point> startPoints = new List<Point>();
+    var startPoints = new List<Point>();
+    var endPoint = new Point();
 
     var heightMap = new int[lines.Length][];
-    for (int row = 0; row < lines.Length; row++)
+    for (var row = 0; row < lines.Length; row++)
     {
         heightMap[row] = lines[row].ToCharArray().Select(x => height.IndexOf(x)).ToArray();
         for (var x = 0; x < heightMap[row].Length; x++)
@@ -100,12 +101,16 @@ void Q2(string[] lines)
             {
                 startPoints.Add(new Point(x, row));
             }
+            if (heightMap[row].Contains(height.IndexOf("E")))
+            {
+                endPoint = new Point(Array.IndexOf(heightMap[row], height.IndexOf("E")), row);
+            }
         }
     }
     rowLength = heightMap.Length;
     colLength = heightMap[0].Length;
 
-    Run(heightMap, startPoints);
+    Run(heightMap, startPoints, endPoint);
 }
 
 var lines = File.ReadAllLines("input_01.txt");
