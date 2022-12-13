@@ -29,16 +29,12 @@ def q2(f):
 
 def flatten(lst: List[Any]) -> Iterable[Any]:
     for item in lst:
-        
         if isinstance(item, list):
             if len(item) == 0:
                 item.append(0)
             yield from flatten(item)
         else:
-            if item is None:
-                item = 0
             yield item
-
 
 def parse(l, r, g, dict, correct):
     l_count = len(l)
