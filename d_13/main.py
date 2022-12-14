@@ -41,29 +41,26 @@ def check(l, r, g, dict, correct):
     r_count = len(r)
     
     for i, x in enumerate(l):
-        left_item = x
+        left = x
 
         if g in dict:
             break
         elif r_count > i:
-            right_item = r[i]
+            right = r[i]
         else:
             dict.add(g)
             break
 
-        if all(isinstance(x, int) for x in [left_item, right_item]):
-            if left_item == right_item:
+        if all(isinstance(x, int) for x in [left, right]):
+            if left == right:
                 continue
-            if left_item < right_item:
+            if left < right:
                 correct.add(g)
             dict.add(g)
      
-        if isinstance(left_item, int):
-            left_item = [left_item]
-        if isinstance(right_item, int): 
-            right_item = [right_item]
-
-        correct = check(left_item, right_item, g, dict, correct)
+        left = [left] if isinstance(left, int) else left
+        right = [right] if isinstance(right, int) else right
+        correct = check(left, right, g, dict, correct)
     
     if not g in dict and r_count > l_count:
         correct.add(g)
