@@ -39,7 +39,7 @@ def flatten(lst: List[Any]) -> Iterable[Any]:
 def check(l, r, g, dict, correct):
     l_count = len(l)
     r_count = len(r)
-
+    
     for i, x in enumerate(l):
         left_item = x
 
@@ -57,8 +57,13 @@ def check(l, r, g, dict, correct):
             if left_item < right_item:
                 correct.add(g)
             dict.add(g)
-            
-        correct = check(list(flatten([left_item])), list(flatten([right_item])), g, dict, correct)
+     
+        if isinstance(left_item, int):
+            left_item = [left_item]
+        if isinstance(right_item, int): 
+            right_item = [right_item]
+
+        correct = check(left_item, right_item, g, dict, correct)
     
     if not g in dict and r_count > l_count:
         correct.add(g)
