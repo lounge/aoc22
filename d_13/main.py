@@ -25,6 +25,10 @@ def q2(f):
         lists.append(list(flatten(r)))
     lists.extend([[2], [6]])
     lists.sort()
+
+    for li in lists:
+        print(li)
+
     print((lists.index([2]) + 1) * (lists.index([6]) + 1))
 
 def flatten(lst: List[Any]) -> Iterable[Any]:
@@ -68,7 +72,7 @@ def check(l, r, g, dict, correct):
     return correct
 
 def main():
-    with open(os.path.join(sys.path[0], "input_01.txt"), "r") as file:
+    with open(os.path.join(sys.path[0], "input_test.txt"), "r") as file:
         f = file.read()
         q1(f)
         q2(f)
