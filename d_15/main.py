@@ -4,12 +4,11 @@ import re
 tris = []
 x_val = set()
 b = set()
-row = 2000000
+row = 10
 n = 4000000
 
 def area(x1, y1, x2, y2, x3, y3):
-    return abs((x1 * (y2 - y3) + x2 * (y3 - y1)
-                + x3 * (y1 - y2)) / 2.0)
+    return abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0)
  
 def inside(x1, y1, x2, y2, x3, y3, x, y):
     a = area(x1, y1, x2, y2, x3, y3)
@@ -32,8 +31,8 @@ def safe(points, point):
 def q1():
     c = 0
     for x in range(min(x_val), max(x_val)):
-        for t in tris:
-            if inside(t[0][0], t[1][0], t[0][1], t[1][1], t[0][2], t[1][2], x, row):
+        for tx, ty in tris:
+            if inside(tx[0], ty[0], tx[1], ty[1], tx[2], ty[2], x, row):
                 c = c + 1
                 break
             
@@ -56,7 +55,7 @@ def q2(points):
     
     return None
 
-with open(os.path.join(sys.path[0], "input_02.txt"), "r") as file:
+with open(os.path.join(sys.path[0], "input_test.txt"), "r") as file:
     points = []
 
     while (line := file.readline().rstrip()):
@@ -75,11 +74,10 @@ with open(os.path.join(sys.path[0], "input_02.txt"), "r") as file:
 
         points.append((x1, y1, dist))
 
-    # print(q1())
+    print(q1())
 
     x, y  = q2(points)
-    print(x, y)
-    print(x * n + y)
+    print(x * 4000000 + y)
 
 
 
